@@ -11,5 +11,6 @@ export default function errorHandler(
       errors: err.serializeErrors(),
     });
   }
+  console.log(err);
   res.status(400).send({ errors: [{ message: 'Something went wrong' }] });
 }
