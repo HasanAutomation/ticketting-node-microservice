@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import cookieSession from 'cookie-session';
 import 'express-async-errors';
 import mongoose from 'mongoose';
 import { NotFoundError } from './errors/not-found-error';
@@ -9,7 +10,14 @@ import { signOutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
 
 const app = express();
+app.set('trust proxy', true);
 app.use(express.json());
+app.use(
+  cookieSession({
+    signed: false,
+    // secure: true,
+  })
+);
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'Welcome to Auth Service' });
